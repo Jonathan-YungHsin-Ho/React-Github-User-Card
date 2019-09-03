@@ -17,9 +17,22 @@ const GlobalStyle = createGlobalStyle`
 const SearchBar = styled.div`
   background-color: #24292e;
   padding: 20px;
+  display: flex;
+  justify-content: space-between;
+
+  h1 {
+    margin: 0;
+    color: #e8e8e8;
+    font-size: 28px;
+
+    .no-bold {
+      font-weight: normal;
+    }
+  }
 
   input {
     background-color: #3f4448;
+    width: 70%;
     color: #8d908d;
     border: none;
     outline: none;
@@ -72,7 +85,7 @@ class App extends React.Component {
     this.setState({ search: event.target.value });
   };
 
-  fetchUser = event => {
+  fetchUser = () => {
     fetch(`https://api.github.com/users/${this.state.search}`)
       .then(res => res.json())
       .then(res => this.setState({ data: res }))
@@ -84,23 +97,40 @@ class App extends React.Component {
       .catch(err => console.log(err));
   };
 
+  handleClick = user => {
+    fetch(`https://api.github.com/users/${user}`)
+      .then(res => res.json())
+      .then(res => this.setState({ data: res }))
+      .catch(err => console.log(err));
+
+    fetch(`https://api.github.com/users/${user}/followers`)
+      .then(res => res.json())
+      .then(res => this.setState({ followers: res }))
+      .catch(err => console.log(err));
+  };
+
   render() {
     console.log(this.state.followers);
     return (
       <div className='App'>
         <SearchBar>
-          <input
-            type='text'
-            placeholder='Search github users...'
-            value={this.state.search}
-            onChange={this.handleChange}
-          />
-          <button onClick={this.fetchUser}>Go!</button>
+          <div>
+            <input
+              type='text'
+              placeholder='Search github users...'
+              value={this.state.search}
+              onChange={this.handleChange}
+            />
+            <button onClick={this.fetchUser}>Go!</button>
+          </div>
+          <h1>
+            GitHub <span className='no-bold'>User Search</span>
+          </h1>
         </SearchBar>
         <GlobalStyle />
-        <MainCard data={this.state.data} />
+        <MainCard data={this.state.data} handleClick={this.handleClick} />
         {this.state.followers.map(user => (
-          <GithubCard data={user} />
+          <GithubCard data={user} handleClick={this.handleClick} />
         ))}
       </div>
     );

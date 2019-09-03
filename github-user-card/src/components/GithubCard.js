@@ -24,6 +24,7 @@ const Card = styled.div`
     width: 100%;
     max-width: 200px;
     border-radius: 3px;
+    cursor: pointer;
   }
 
   .profile {
@@ -41,7 +42,11 @@ const GithubCard = props => {
     <Card className='card'>
       <div className='main-content'>
         <div className='img-wrapper'>
-          <img alt={props.data.name} src={props.data.avatar_url} />
+          <img
+            alt={props.data.name}
+            src={props.data.avatar_url}
+            onClick={() => props.handleClick(props.data.login)}
+          />
         </div>
         <div className='profile'>
           <h2>{props.data.name}</h2>
