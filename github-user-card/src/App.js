@@ -12,6 +12,10 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     font-family: 'Roboto', sans-serif;
   }
+
+  .center {
+    text-align: center;
+  }
 `;
 
 const SearchBar = styled.div`
@@ -66,6 +70,7 @@ class App extends React.Component {
     data: [],
     user: 'jonathan-yunghsin-ho',
     followers: [],
+    // followersData: [],
     search: '',
   };
 
@@ -79,6 +84,23 @@ class App extends React.Component {
       .then(res => res.json())
       .then(res => this.setState({ followers: res }))
       .catch(err => console.log(err));
+
+    // fetch(`https://api.github.com/users/${this.state.user}/followers`)
+    //   .then(res => res.json())
+    //   .then(res =>
+    //     res.map(user => {
+    //       fetch(`https://api.github.com/users/${user.login}`)
+    //         .then(res => res.json())
+    //         // .then(res => console.log(res))
+    //         .then(
+    //           this.setState({
+    //             followersData: res,
+    //           }),
+    //         )
+    //         .catch(err => console.log(err));
+    //     }),
+    //   )
+    //   .catch(err => console.log(err));
   }
 
   handleChange = event => {
@@ -95,6 +117,8 @@ class App extends React.Component {
       .then(res => res.json())
       .then(res => this.setState({ followers: res }))
       .catch(err => console.log(err));
+
+    this.setState({ search: '' });
   };
 
   handleClick = user => {
@@ -136,6 +160,9 @@ class App extends React.Component {
         </SearchBar>
         <GlobalStyle />
         <MainCard data={this.state.data} handleClick={this.handleClick} />
+        <div className='center'>
+          <h2>Followers:</h2>
+        </div>
         {this.state.followers.map(user => (
           <GithubCard
             key={user.id}

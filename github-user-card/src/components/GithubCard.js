@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+// import GitHubCalendar from 'github-calendar';
 
 const Card = styled.div`
   border: 1px solid silver;
@@ -38,6 +39,8 @@ const Card = styled.div`
 `;
 
 const GithubCard = props => {
+  // new GitHubCalendar('.calendar', props.data.login);
+
   return (
     <Card className='card'>
       <div className='main-content'>
@@ -60,7 +63,9 @@ const GithubCard = props => {
           {props.data.bio && <p>Bio: {props.data.bio}</p>}
         </div>
       </div>
-      <div className='extra-content'></div>
+      <div className='extra-content'>
+        {/* <div className='calendar'></div> */}
+      </div>
     </Card>
   );
 };
