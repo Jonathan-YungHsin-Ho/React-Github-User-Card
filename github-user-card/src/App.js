@@ -109,28 +109,39 @@ class App extends React.Component {
       .catch(err => console.log(err));
   };
 
+  handleKeyDown = event => {
+    if (event.key === 'Enter') {
+      console.log('enter');
+      this.fetchUser();
+    }
+  };
+
   render() {
-    console.log(this.state.followers);
     return (
       <div className='App'>
         <SearchBar>
           <div>
             <input
               type='text'
-              placeholder='Search github users...'
+              placeholder='Look up GitHub user...'
               value={this.state.search}
               onChange={this.handleChange}
+              onKeyDown={this.handleKeyDown}
             />
             <button onClick={this.fetchUser}>Go!</button>
           </div>
           <h1>
-            GitHub <span className='no-bold'>User Search</span>
+            GitHub <span className='no-bold'>User Lookup</span>
           </h1>
         </SearchBar>
         <GlobalStyle />
         <MainCard data={this.state.data} handleClick={this.handleClick} />
         {this.state.followers.map(user => (
-          <GithubCard data={user} handleClick={this.handleClick} />
+          <GithubCard
+            key={user.id}
+            data={user}
+            handleClick={this.handleClick}
+          />
         ))}
       </div>
     );
