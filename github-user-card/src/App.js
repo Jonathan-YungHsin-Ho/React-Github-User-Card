@@ -19,6 +19,7 @@ class App extends React.Component {
     data: [],
     user: 'jonathan-yunghsin-ho',
     followers: [],
+    search: '',
   };
 
   componentDidMount() {
@@ -33,11 +34,34 @@ class App extends React.Component {
       .catch(err => console.log(err));
   }
 
+  handleChange = event => {
+    this.setState({ search: event.target.value });
+  };
+
+  fetchUser = event => {
+    fetch(`https://api.github.com/users/${this.state.search}`)
+      .then(res => res.json())
+      .then(res => this.setState({ data: res }))
+      .catch(err => console.log(err));
+
+    fetch(`https://api.github.com/users/${this.state.search}/followers`)
+      .then(res => res.json())
+      .then(res => this.setState({ followers: res }))
+      .catch(err => console.log(err));
+  };
+
   render() {
     console.log(this.state.followers);
     return (
       <div className='App'>
-        <h1>Github User Search</h1>
+        <div>
+          <input
+            type='text'
+            value={this.state.search}
+            onChange={this.handleChange}
+          />
+          <button onClick={this.fetchUser}>Search Github Users</button>
+        </div>
         <GlobalStyle />
         <MainCard data={this.state.data} />
         {this.state.followers.map(user => (
