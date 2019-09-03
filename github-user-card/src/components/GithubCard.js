@@ -7,11 +7,11 @@ const GithubCard = props => {
       <div>
         <h2>{props.data.name}</h2>
         <h3>{props.data.login}</h3>
-        <p>Location: {props.data.location}</p>
+        {props.data.location && <p>Location: {props.data.location}</p>}
         <p>Profile: {props.data.html_url}</p>
-        <p>Followers: {props.data.followers}</p>
-        <p>Following: </p>
-        <p>Bio: {props.data.bio}</p>
+        {props.data.followers && <p>Followers: {props.data.followers}</p>}
+        {props.data.following && <p>Following: {props.data.following}</p>}
+        {props.data.bio && <p>Bio: {props.data.bio}</p>}
       </div>
     </div>
   );
