@@ -103,6 +103,12 @@ class App extends React.Component {
     //   .catch(err => console.log(err));
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.data !== prevState.data) {
+      window.scrollTo(0, 0);
+    }
+  }
+
   handleChange = event => {
     this.setState({ search: event.target.value });
   };
