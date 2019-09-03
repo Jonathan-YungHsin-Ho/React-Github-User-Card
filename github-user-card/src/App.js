@@ -1,5 +1,5 @@
 import React from 'react';
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 import MainCard from './components/MainCard';
 import GithubCard from './components/GithubCard';
@@ -11,6 +11,40 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     font-family: 'Roboto', sans-serif;
+  }
+`;
+
+const SearchBar = styled.div`
+  background-color: #24292e;
+  padding: 20px;
+
+  input {
+    background-color: #3f4448;
+    color: #8d908d;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  button {
+    margin-left: 10px;
+    border: none;
+    outline: none;
+    background-color: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #8d908d;
+    }
   }
 `;
 
@@ -54,14 +88,15 @@ class App extends React.Component {
     console.log(this.state.followers);
     return (
       <div className='App'>
-        <div>
+        <SearchBar>
           <input
             type='text'
+            placeholder='Search github users...'
             value={this.state.search}
             onChange={this.handleChange}
           />
-          <button onClick={this.fetchUser}>Search Github Users</button>
-        </div>
+          <button onClick={this.fetchUser}>Go!</button>
+        </SearchBar>
         <GlobalStyle />
         <MainCard data={this.state.data} />
         {this.state.followers.map(user => (
