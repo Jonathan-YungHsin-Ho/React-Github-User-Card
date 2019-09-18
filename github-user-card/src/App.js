@@ -70,7 +70,7 @@ class App extends React.Component {
     data: [],
     user: 'jonathan-yunghsin-ho',
     followers: [],
-    // followersData: [],
+    followersData: [],
     search: '',
   };
 
@@ -91,12 +91,11 @@ class App extends React.Component {
     //     res.map(user => {
     //       fetch(`https://api.github.com/users/${user.login}`)
     //         .then(res => res.json())
-    //         // .then(res => console.log(res))
-    //         .then(
+    //         .then(data => {
     //           this.setState({
-    //             followersData: res,
-    //           }),
-    //         )
+    //             followersData: [...this.state.followersData, data],
+    //           });
+    //         })
     //         .catch(err => console.log(err));
     //     }),
     //   )
@@ -147,6 +146,7 @@ class App extends React.Component {
   };
 
   render() {
+    console.log('Followers', this.state.followers);
     return (
       <div className='App'>
         <SearchBar>
