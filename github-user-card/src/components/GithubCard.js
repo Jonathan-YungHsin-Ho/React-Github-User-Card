@@ -56,7 +56,13 @@ const GithubCard = props => {
           <h3>{props.data.login}</h3>
           {props.data.location && <p>Location: {props.data.location}</p>}
           <p>
-            Profile: <a href={props.data.html_url}>{props.data.html_url}</a>
+            Profile:{' '}
+            <a
+              href={props.data.html_url}
+              target='_blank'
+              rel='noopener noreferrer'>
+              {props.data.html_url}
+            </a>
           </p>
           {props.data.followers && <p>Followers: {props.data.followers}</p>}
           {props.data.following && <p>Following: {props.data.following}</p>}
